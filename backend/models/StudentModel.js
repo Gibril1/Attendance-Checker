@@ -10,13 +10,7 @@ const studentSchema = new mongoose.Schema({
     otherName:{
         type: String
     },
-    email: {
-        type: String,
-        unique: true
-    },
-    password: {
-        type: String
-    },
+    
     referenceNumber:{
         type: String,
         unique: true
