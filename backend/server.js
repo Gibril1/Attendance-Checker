@@ -19,8 +19,9 @@ app.use(express.urlencoded({ extended: true, limit:"50mb" }))
 app.use(errorHandler)
 
 // Routes
-app.use('/api/user/', require('./routes/UserRoutes'))
+app.use('/api/auth/', require('./routes/AuthRoutes'))
 app.use('/api/course/', require('./routes/CourseRoutes'))
+app.use('/api/student/', require('./routes/StudentRoutes'))
 
 // Listen to Port
 app.listen(port, () => {

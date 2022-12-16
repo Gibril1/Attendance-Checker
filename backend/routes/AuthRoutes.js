@@ -6,7 +6,7 @@ const {
     registerUser, 
     loginUser ,
     getUsers
-} = require('../controllers/UserControllers')
+} = require('../controllers/AuthControllers')
 
 router.post('/register', upload.single('image'), registerUser)
 router.post('/login', loginUser)
