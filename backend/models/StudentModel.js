@@ -15,6 +15,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         unique: true
     }, 
+    userId:{
+        type: mongoose.Types.ObjectId,
+        ref:'User'
+    },
     avatar:{
         type: String
     },

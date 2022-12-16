@@ -9,14 +9,11 @@ const teacherSchema = new mongoose.Schema({
     },
     otherName:{
         type: String
-    },
-    email: {
-        type: String,
-        unique: true
-    },
-    password: {
-        type: String
     }, 
+    userId:{
+        type: mongoose.Types.ObjectId,
+        ref:'User'
+    },
     avatar:{
         type: String
     },
@@ -26,3 +23,7 @@ const teacherSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Teacher', teacherSchema)
+
+
+
+    

@@ -8,14 +8,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    teacher:{
-        type: mongoose.Types.ObjectId,
-        ref: 'Teacher'
-    },
-    student:{
-        type: mongoose.Types.ObjectId,
-        ref: 'Student'
-    },
     role:{
         type: String,
         enums:['student', 'teacher']
@@ -23,3 +15,4 @@ const userSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('User', userSchema)
+
