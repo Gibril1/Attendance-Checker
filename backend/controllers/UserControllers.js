@@ -1,3 +1,5 @@
+// these functions are for routes that allows user registration and login
+
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -6,7 +8,9 @@ const Teacher = require('../models/TeacherModel')
 const Student = require('../models/StudentModel')
 const User = require('../models/UserModel')
 
-
+// @desc Register User
+// @routes /api/user/register
+// @access Public
 const registerUser = asyncHandler(async(req, res) => {
     if(!req.body){
         res.status(404)
@@ -68,7 +72,7 @@ const registerUser = asyncHandler(async(req, res) => {
             cloudinaryId: result.public_id
         })
         res.status(200).json({
-            'message':`Account has been created for ${teacher.firstName}`
+            message :`Account has been created for ${teacher.firstName}`
         })
     } else {
         const student = await Student.create({
@@ -81,7 +85,7 @@ const registerUser = asyncHandler(async(req, res) => {
             cloudinaryId: result.public_id
         })
         res.status(200).json({
-            'message':`Account has been created for ${student.firstName}`
+            message:`Account has been created for ${student.firstName}`
 
         })
     } 
@@ -116,6 +120,9 @@ const loginUser = asyncHandler(async(req, res) => {
             id: user._id,
             token: generateToken(user._id)
         })
+    }else{
+        res.status(404)
+        throw new Error('Invalid Credentials')
     }
 })
 

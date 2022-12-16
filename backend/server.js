@@ -20,6 +20,7 @@ app.use(errorHandler)
 
 // Routes
 app.use('/api/user/', require('./routes/UserRoutes'))
+app.use('/api/course/', require('./routes/CourseRoutes'))
 
 // Listen to Port
 app.listen(port, () => {

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const studentClassSchema = new mongoose.Schema({
-    class:{
+    course:{
         type: mongoose.Types.ObjectId,
-        ref: 'Class'
+        ref: 'Course'
     },
     student:{
         type: mongoose.Types.ObjectId,
