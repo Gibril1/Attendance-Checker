@@ -22,6 +22,7 @@ app.use(errorHandler)
 app.use('/api/auth/', require('./routes/AuthRoutes'))
 app.use('/api/course/', require('./routes/CourseRoutes'))
 app.use('/api/student/', require('./routes/StudentRoutes'))
+app.use('/api/teacher/', require('./routes/TeacherRoutes'))
 
 // Listen to Port
 app.listen(port, () => {

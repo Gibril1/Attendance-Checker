@@ -7,7 +7,7 @@ const studentClassSchema = new mongoose.Schema({
     },
     student:{
         type: mongoose.Types.ObjectId,
-        ref: 'Student'
+        ref: 'User'
     }
 })
 

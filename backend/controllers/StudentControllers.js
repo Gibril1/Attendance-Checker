@@ -24,6 +24,7 @@ const getCourses = asyncHandler(async(req, res) => {
 
 // @desc Join A Course
 // @routes GET /api/users/join/:id
+// @access Private: Student
 const joinCourse = asyncHandler(async(req, res) => {
     try {
         if(!req.user){
@@ -58,7 +59,37 @@ const joinCourse = asyncHandler(async(req, res) => {
     }
 })
 
+// @desc Get Joined Courses
+// @routes GET /api/courses/joined-courses/
+// @access Private: Student
+const getJoinedCourses = asyncHandler(async(req, res) => {
+    try {
+        if(!req.user){
+            res.status(400)
+            throw new Error('Not authorised. No token')
+        }
+    
+        if(req.user.role !== 'student'){
+            res.status(400)
+            throw new Error('Not a student. Not authorized')
+        }
+
+        const studentCourses = await StudentClass.find({ student: req.user.id })
+
+        const coursesID = studentCourses.map((studentCourse) => studentCourse.course)
+
+        const courses = await Course.find({ _id: { $in: coursesID}})
+
+        res.status(200).json(courses)
+
+    } catch (error) {
+        res.status(500)
+        throw new Error(error.message)
+    }
+
+})
 module.exports = {
     getCourses,
-    joinCourse
+    joinCourse,
+    getJoinedCourses
 }
