@@ -39,8 +39,10 @@ const registerUser = asyncHandler(async(req, res) => {
         throw new Error(`Student with reference number ${referenceNumber} already exists`)
    }
 
+   
     // upload the image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path)
+    
 
     // check if user exists
     const userExists = await User.findOne({ email })

@@ -92,12 +92,11 @@ const markAttendance = asyncHandler(async(req, res) => {
             throw new Error('This is not your class. Sir!')
         }
 
-        
-
+        // marks attendance
         const attendance = await Attendance.create({
             teacher: req.user.id,
             student: req.body.student,
-            course: req.params.id,
+            course: course._id,
             status: req.body.status
         })
 

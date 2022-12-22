@@ -2,6 +2,7 @@
 const asyncHandler = require('express-async-handler')
 const Course = require('../models/CourseModel')
 const StudentClass = require('../models/StudentClassModel')
+const Attendance = require('../models/AttendanceModel')
 
 // @desc Get All Courses
 // @routes GET /api/users/
@@ -47,7 +48,7 @@ const joinCourse = asyncHandler(async(req, res) => {
     
         // enroll a student into a class
         const enrolledStudent = await StudentClass.create({
-            course: req.params.id,
+            course: course._id,
             student: req.user.id
         })
     
@@ -78,9 +79,79 @@ const getJoinedCourses = asyncHandler(async(req, res) => {
 
         const coursesID = studentCourses.map((studentCourse) => studentCourse.course)
 
-        const courses = await Course.find({ _id: { $in: coursesID}})
+        const courses = await Course.find({ _id: { $in: coursesID }})
 
         res.status(200).json(courses)
+
+    } catch (error) {
+        res.status(500)
+        throw new Error(error.message)
+    }
+
+})
+
+
+// @desc Check Attendance
+// @routes GET /api/students/check/:id
+// @access PrivateL Student
+const checkAttendanceCount = asyncHandler(async(req, res) => {
+    try {
+        if(!req.user){
+            res.status(400)
+            throw new Error('You are not authorized')
+        }
+
+        if(req.user.role !== 'student'){
+            res.status(400)
+            throw new Error('You are not a registered student')
+        }
+
+        const course = await Course.findById(req.params.id)
+
+        if(!course){
+            res.status(404)
+            throw new Error(`Course with id of ${req.params.id} does not exist`)
+        }
+
+        const countPresence = await Attendance.countDocuments({ course: course._id}, { student: req.user.id }, { status: 'Present' })
+
+        const countAbsence = await Attendance.countDocuments({ course: course._id}, { student: req.user.id }, { status: 'Present' })
+
+        res.status(200).json({
+            presence: countPresence,
+            absence: countAbsence
+        })
+    } catch (error) {
+        res.status(500)
+        throw new Error(error.message)
+    }
+})
+
+// @desc Get Attendance List
+// @routes GET /api/students/attendance/:id
+// @access Private: Student
+const getAttendanceList = asyncHandler(async(req, res) => {
+    try {
+        if(!req.user){
+            res.status(400)
+            throw new Error('You are not authorized')
+        }
+
+        if(req.user.role !== 'student'){
+            res.status(400)
+            throw new Error('You are not a registered student')
+        }
+
+        const course = await Course.findById(req.params.id)
+
+        if(!course){
+            res.status(404)
+            throw new Error(`Course with id of ${req.params.id} does not exist`)
+        }
+
+        const attendanceList = await Attendance.find({ course: course._id }, { student: req.user.id})
+
+        res.status(200).json(attendanceList)
 
     } catch (error) {
         res.status(500)
@@ -91,5 +162,7 @@ const getJoinedCourses = asyncHandler(async(req, res) => {
 module.exports = {
     getCourses,
     joinCourse,
-    getJoinedCourses
+    getJoinedCourses,
+    checkAttendanceCount,
+    getAttendanceList
 }
