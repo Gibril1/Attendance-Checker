@@ -94,7 +94,7 @@ const updateCourse = asyncHandler(async(req, res) => {
 // @desc Get Course => Courses that have been created for this user
 // @route /api/course
 // @access Private: Teachers
-const getCourse = asyncHandler(async(req, res) => {
+const getCourses = asyncHandler(async(req, res) => {
     try {
         if(!req.user){
             res.status(400)
@@ -148,12 +148,48 @@ const deleteCourse = asyncHandler(async(req, res) => {
     } catch (error) {
         
     }
+})
+
+// @desc Get Course
+// @route /api/course/:id
+// @access Private: Teachers
+const getCourse = asyncHandler(async(req, res) => {
+    try {
+        
+        if(!req.user){
+            res.status(400)
+            throw new Error('Not authorized')
+        }
+
+        if(req.user.role !== 'teacher'){
+            res.status(400)
+            throw new Error('You are not a registered teacher')
+        }
+
+        
+        const course = await Course.findById(req.params.id)
+
+        if(!course){
+            throw new Error(`Course with id ${req.params.id} does not exist`)
+        }
+
+        if(course.teacher.toString() !== req.user.id){
+            res.status(400)
+            throw new Error('You are not authorized to edit the details of this course')
+        }
+
+
+        res.status(200).json(course)
+    } catch (error) {
+        
+    }
 
 })
 
 module.exports = {
     createCourse,
     updateCourse,
-    getCourse,
-    deleteCourse
+    getCourses,
+    deleteCourse,
+    getCourse
 }
