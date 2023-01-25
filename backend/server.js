@@ -26,5 +26,5 @@ app.use('/api/teacher/', require('./routes/TeacherRoutes'))
 
 // Listen to Port
 app.listen(port, () => {
-    console.log(`Server is listening at port ${port}`)
+    console.log(`Server is listening at port ${port}`.blue.underline)
 })

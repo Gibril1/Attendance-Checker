@@ -40,8 +40,10 @@ const registerUser = asyncHandler(async(req, res) => {
    }
 
    
+   let result
     // upload the image to cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path)
+    if(req.file)
+        result = await cloudinary.uploader.upload(req.file.path)
     
 
     // check if user exists
@@ -65,29 +67,29 @@ const registerUser = asyncHandler(async(req, res) => {
 
     // store details into respective tables
     if(user.role === 'teacher'){
-        const teacher = await Teacher.create({
+            await Teacher.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             otherName: req.body.otherName,
             userId: user._id,
-            avatar: result.secure_url,
-            cloudinaryId: result.public_id
+            avatar: result ? result.secure_url : null,
+            cloudinaryId: result ? result.public_id : null
         })
         res.status(200).json({
-            message :`Account has been created for ${teacher.firstName}`
+            message :`Account has been created for ${req.body.firstName}`
         })
     } else {
-        const student = await Student.create({
+            await Student.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             otherName: req.body.otherName,
             referenceNumber: req.body.referenceNumber,
             userId: user._id,
-            avatar: result.secure_url,
-            cloudinaryId: result.public_id
+            avatar: result ? result.secure_url : null,
+            cloudinaryId: result ? result.public_id : null
         })
         res.status(200).json({
-            message:`Account has been created for ${student.firstName}`
+            message:`Account has been created for ${req.body.firstName}`
 
         })
     } 

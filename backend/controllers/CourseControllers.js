@@ -22,11 +22,29 @@ const createCourse = asyncHandler(async(req, res) => {
             res.status(404)
             throw new Error('Please enter all fields')
         }
+
+        // ensuring correct inputs
+        const { courseCode, name, creditHours } = req.body
+
+        if(!creditHours || !name || name === '' || !courseCode || courseCode === ''){
+            res.status(400)
+            throw new Error('Please enter the correct input fields')
+        }
+
+        
+        // checking if similar course code exists
+        const courseExists = await Course.findOne({ courseCode })
+
+        if(courseExists){
+            res.status(400)
+            throw new Error(`Course with course code ${courseCode} already exists`)
+        }
+
     
         const course = await Course.create({
-            name: req.body.name,
-            courseCode: req.body.courseCode,
-            creditHours: req.body.creditHours,
+            name: name,
+            courseCode: courseCode,
+            creditHours: creditHours,
             teacher: req.user.id
         })
     
@@ -102,12 +120,7 @@ const getCourse = asyncHandler(async(req, res) => {
 // @access Private: Teachers
 const deleteCourse = asyncHandler(async(req, res) => {
     try {
-        const course = await Course.findById(req.params.id)
-
-        if(!course){
-            throw new Error(`Course with id ${req.params.id} does not exist`)
-        }
-
+        
         if(!req.user){
             res.status(400)
             throw new Error('Not authorized')
@@ -122,6 +135,13 @@ const deleteCourse = asyncHandler(async(req, res) => {
             res.status(400)
             throw new Error('You are not authorized to edit the details of this course')
         }
+
+        const course = await Course.findById(req.params.id)
+
+        if(!course){
+            throw new Error(`Course with id ${req.params.id} does not exist`)
+        }
+
 
         await course.remove()
         res.status(204).json({ id: req.params.id })

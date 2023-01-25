@@ -5,7 +5,9 @@ const courseSchema = new mongoose.Schema({
         type: String
     },
     courseCode:{
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     creditHours:{
         type: Number

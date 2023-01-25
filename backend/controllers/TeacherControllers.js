@@ -58,6 +58,8 @@ const getEnrolledStudents = asyncHandler(async(req, res) => {
 // @access Private: Teacher
 const markAttendance = asyncHandler(async(req, res) => {
     try {
+
+        // checking for authentication and authorization
         if(!req.user){
             res.status(400)
             throw new Error('No user. Not authorised')
@@ -68,12 +70,13 @@ const markAttendance = asyncHandler(async(req, res) => {
             throw new Error('You are not authorized here')
         }
 
+        // checking the validity of the request body
         if(!req.body){
             res.status(400)
             throw new Error('Please enter all fields')
         }
 
-        if(!req.body.student || !req.body.status){
+        if(!req.body.student || req.body.student === ''  || !req.body.status || req.body.status === ''){
             res.status(400)
             throw new Error('Please enter all fields')
         }
@@ -90,6 +93,25 @@ const markAttendance = asyncHandler(async(req, res) => {
         if(course.teacher.toString() !== req.user.id){
             res.status(400)
             throw new Error('This is not your class. Sir!')
+        }
+
+
+        
+        // getting the id of the course
+        const { _id } = course
+
+        // checking to see if the student actually exists
+        const studentCourses = await StudentClass.find({ student: req.body.student})
+
+        // get all the courses the student has enrolled in
+        const Courses = studentCourses.map((student) => student.course )
+
+        // checking if the student has enrolled for this particular class
+        const enrolledCourse = await Course.find({ _id : { $in: Courses }})
+
+        if(!enrolledCourse){
+            res.status(404)
+            throw new Error('Student has not enrolled for this course')
         }
 
         // marks attendance
