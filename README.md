@@ -73,3 +73,15 @@ This is for checking the number of items a student has been present and absent f
 This is for checking the list of all attendances that have been taken for a particular course
 
 
+. Teacher Routes
+--------------------
+These are end points that allows teachers to access the system. Students cannot access these routes
+
+#### ``` POST /api/teacher/mark/:id ```
+This is the route for marking attendance
+
+#### ``` GET /api/teacher/get-students/:id ```
+This is the route for getting students that have enrolled for a particular course
+
+
+
