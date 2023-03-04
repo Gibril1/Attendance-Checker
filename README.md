@@ -24,9 +24,31 @@ The routes for this project are classified into
 . Auth Routes
 ---------------
 These are authentication routes that are used for registration and logging into the system.
-### ``` POST /api/auth/register ```
+##### ``` POST /api/auth/register ```
 This is the end point for registering a user into the system
 
-### ``` POST /api/auth/login  ```
+##### ``` POST /api/auth/login  ```
 This is the end point that logs a user into the system
+
+The functions for this router are found in the controllers folder.
+
+. Course Routes
+-------------------
+These are endpoints for CRUD operations on courses. These routes are protected and only teachers can access these routes.
+
+#### ``` POST /api/course/ ```
+This is the end point for techers to create a course
+
+#### ``` GET /api/course/ ```
+This is the end point for teachers to get all the courses they have created
+
+#### ``` GET /api/course/:id ```
+For getting the details of a particular course
+
+#### ``` PUT /api/course/:id ```
+For updating the details of a particular course
+
+#### ``` DELETE /api/course/:id ```
+Deleting courses that have been created by a teacher. You cannot delete a course you did not create.
+
 
