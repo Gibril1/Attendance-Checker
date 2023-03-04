@@ -21,6 +21,7 @@ The main folder for this project is labelled **backend**. It contains the follow
 
 ## Routes and Entities
 The routes for this project are classified into
+
 . Auth Routes
 ---------------
 These are authentication routes that are used for registration and logging into the system.
@@ -50,5 +51,25 @@ For updating the details of a particular course
 
 #### ``` DELETE /api/course/:id ```
 Deleting courses that have been created by a teacher. You cannot delete a course you did not create.
+
+
+. Student Routes
+-------------------
+These are end points that allows students to access the system. Teachers cannot access these routes
+
+#### ``` GET /api/student/ ```
+This is the end point for students to have a view of all the courses in the system
+
+#### ``` POST /api/student/join/:id  ```
+This is the endpoint for students to join a course they are interested in. The **id** is in reference to the id of that course
+
+#### ``` GET /api/student/joined-courses/  ```
+This is the end point for students to get all the courses they have registered for
+
+#### ``` GET /api/student/check/:id  ```
+This is for checking the number of items a student has been present and absent for a particular course
+
+#### ``` GET /api/student/attendance/:id  ```
+This is for checking the list of all attendances that have been taken for a particular course
 
 
