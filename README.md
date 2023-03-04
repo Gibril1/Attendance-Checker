@@ -2,11 +2,10 @@
 A node with express api for marking attendance in a school
 
 ## Scope of Project
-An attendance marking system for a primary or junior high school where students are not allowed to use a phone. At  the beginning of every academic semester, teachers create courses they are supposed to teach and students in turn register for the course by joining the course. This system is a bespoke software that can be used by the whole school.
+This project involves the development of an Express API for marking attendance in a primary or junior high school, where students are not allowed to use their phones. At the beginning of each academic semester, teachers create courses they will be teaching, and students register for the courses by joining them. The software is bespoke and can be used by the entire school.
 
 ## Overview
-In essence, there are two kinds of users that differentiated by their roles. Students and Teachers. A student creates a class (course) that he will teach for the semester and  the student in turn joins the classes he/she would prefer to join.  Depending on when the teacher decides to take attendance, he logs into the system and then starts mentioning the names of students who have registered for his courses. This in turn allows for familiarity and makes teachers know their students by names.
-The system also provides analytic features for both kind of users to see their track record like number of days present or absent.
+There are two types of users with different roles: students and teachers. A teacher creates a course, and students join the courses they prefer. When the teacher decides to take attendance, they log into the system and start mentioning the names of the students who have registered for their courses. This helps to foster familiarity between the teacher and their students and allows the teacher to learn the names of their students.
 
-
+Additionally, the system provides analytical features for both types of users, allowing them to track their attendance record, such as the number of days they have been present or absent.
 
