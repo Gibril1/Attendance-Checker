@@ -24,7 +24,7 @@ const getCourses = asyncHandler(async(req, res) => {
 
 
 // @desc Join A Course
-// @routes GET /api/users/join/:id
+// @routes POST /api/users/join/:id
 // @access Private: Student
 const joinCourse = asyncHandler(async(req, res) => {
     try {
