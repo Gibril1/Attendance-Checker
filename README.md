@@ -1,5 +1,5 @@
 # Attendance Checker
-A node with express api for marking attendance in a school
+A node with express api for marking attendance in a school. The url for this api is [here](https://attendance-08ol.onrender.com)
 
 ## Scope of Project
 This project involves the development of an Express API for marking attendance in a primary or junior high school, where students are not allowed to use their phones. At the beginning of each academic semester, teachers create courses they will be teaching, and students register for the courses by joining them. The software is bespoke and can be used by the entire school.
