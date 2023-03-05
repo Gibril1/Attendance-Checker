@@ -37,19 +37,19 @@ The functions for this router are found in the controllers folder.
 -------------------
 These are endpoints for CRUD operations on courses. These routes are protected and only teachers can access these routes.
 
-#### ``` POST /api/course/ ```
+##### ``` POST /api/course/ ```
 This is the end point for techers to create a course
 
-#### ``` GET /api/course/ ```
+##### ``` GET /api/course/ ```
 This is the end point for teachers to get all the courses they have created
 
-#### ``` GET /api/course/:id ```
+##### ``` GET /api/course/:id ```
 For getting the details of a particular course
 
-#### ``` PUT /api/course/:id ```
+##### ``` PUT /api/course/:id ```
 For updating the details of a particular course
 
-#### ``` DELETE /api/course/:id ```
+##### ``` DELETE /api/course/:id ```
 Deleting courses that have been created by a teacher. You cannot delete a course you did not create.
 
 
@@ -57,19 +57,19 @@ Deleting courses that have been created by a teacher. You cannot delete a course
 -------------------
 These are end points that allows students to access the system. Teachers cannot access these routes
 
-#### ``` GET /api/student/ ```
+##### ``` GET /api/student/ ```
 This is the end point for students to have a view of all the courses in the system
 
-#### ``` POST /api/student/join/:id  ```
+##### ``` POST /api/student/join/:id  ```
 This is the endpoint for students to join a course they are interested in. The **id** is in reference to the id of that course
 
-#### ``` GET /api/student/joined-courses/  ```
+##### ``` GET /api/student/joined-courses/  ```
 This is the end point for students to get all the courses they have registered for
 
-#### ``` GET /api/student/check/:id  ```
+##### ``` GET /api/student/check/:id  ```
 This is for checking the number of items a student has been present and absent for a particular course
 
-#### ``` GET /api/student/attendance/:id  ```
+##### ``` GET /api/student/attendance/:id  ```
 This is for checking the list of all attendances that have been taken for a particular course
 
 
@@ -77,10 +77,10 @@ This is for checking the list of all attendances that have been taken for a part
 --------------------
 These are end points that allows teachers to access the system. Students cannot access these routes
 
-#### ``` POST /api/teacher/mark/:id ```
+##### ``` POST /api/teacher/mark/:id ```
 This is the route for marking attendance
 
-#### ``` GET /api/teacher/get-students/:id ```
+##### ``` GET /api/teacher/get-students/:id ```
 This is the route for getting students that have enrolled for a particular course
 
 
